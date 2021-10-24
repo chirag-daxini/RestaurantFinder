@@ -28,9 +28,11 @@ namespace RestaurantFinder
             return Host.CreateDefaultBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddHttpClient();
                     services.AddHostedService<Startup>();
                     services.AddScoped<IRestaurantService, RestaurantService>();
                     services.AddScoped<IValidationService, ValidationService>();
+                    services.AddScoped<IHttpClientService, HttpClientService>();
                     services.AddSingleton(settings);
 
                 }).ConfigureAppConfiguration(builder =>

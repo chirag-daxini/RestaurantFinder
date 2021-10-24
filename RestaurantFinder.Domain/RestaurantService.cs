@@ -1,23 +1,26 @@
 ﻿using RestaurantFinder.Models;
-using System;
 using System.Threading.Tasks;
 
 namespace RestaurantFinder.Domain
 {
     public interface IRestaurantService
     {
-        Task FindRestaurantbyCodeAsync(string code);
+        Task<RestaurantResponse> FindRestaurantbyCodeAsync(string code);
     }
     public class RestaurantService : IRestaurantService
     {
         private readonly AppSettings _appSettings;
-        public RestaurantService(AppSettings appSettings)
+        private readonly IHttpClientService _httpClientService;
+        public RestaurantService(AppSettings appSettings, IHttpClientService httpClientService)
         {
             _appSettings = appSettings;
+            _httpClientService = httpClientService;
         }
-        public async Task FindRestaurantbyCodeAsync(string code)
+        public async Task<RestaurantResponse> FindRestaurantbyCodeAsync(string code)
         {
-            throw new NotImplementedException();
+            string serviceURL = string.Format($"{AppConstants.ApplicationUrls.BYPOSTCODE}", code);
+            var result = await _httpClientService.GetAsync<RestaurantResponse>($"{_appSettings.RestaurantServiceUrl}{serviceURL}");
+            return result;
         }
     }
 }
