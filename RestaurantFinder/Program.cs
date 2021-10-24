@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RestaurantFinder.Domain;
 using RestaurantFinder.Models;
 using System.Threading.Tasks;
 
@@ -28,6 +29,8 @@ namespace RestaurantFinder
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddHostedService<Startup>();
+                    services.AddScoped<IRestaurantService, RestaurantService>();
+                    services.AddScoped<IValidationService, ValidationService>();
                     services.AddSingleton(settings);
 
                 }).ConfigureAppConfiguration(builder =>
