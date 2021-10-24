@@ -1,0 +1,35 @@
+1) How long did you spend on the coding test? What would you add to your solution if you had more time? If you didn't spend much time on the coding test then use this as an opportunity to explain what you would add.
+
+** I took around 3 hours to finish this test. If i got more time i would have added caching(like InMemory or some other process) to domain service which will save few round trips.
+
+
+2) What was the most useful feature that was added to the latest version of your chosen language? Please include a snippet of code that shows how you've used it.
+
+** Couple of features that i have used from C# 8.0 which is interesting
+a) Property Patterns
+ex : public class Offer
+    {
+        public Guid Id { get; private set; } = Guid.NewGuid();
+
+        public string Description { get; set; }
+
+        public OfferType OfferStratergy { get; set; }
+        public decimal DiscountedPercentage { get; set; }
+    }
+
+
+3) How would you track down a performance issue in production? Have you ever had to do this?
+
+** First i start from ApplicationInsights or any logs. ApplicationInsights has depedency execution time, which tells you which dependecy took time, from there i will first find that dependency.
+Then look in code workflow from where this dependency is taking time.
+Usually before our quotarly deployment we used to run J-Meter tests with production load and tris to find which API is taking more time. For that we usually check AppInsights/ApplicationLogs.
+
+
+4) How would you improve the Just Eat APIs that you just used?
+
+** 1) Pagination can be implemented around API.
+   2) Server response is returning some of the UI element data, which can differ depends on different types of APP, so this should not part of API response.
+   3) Server response can be divide into multiple small small apis like ratingAPI, CusineAPI etc.
+   4) There are multiple datetime representation can be convert based on either params or just by sending UTC and let client handle time conversation.
+
+
